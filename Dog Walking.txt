@@ -1,0 +1,41 @@
+// Don't place your source in a package
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+// Please name your class Main
+class Main {
+	public static void main (String[] args) throws java.lang.Exception {
+	    int dogsNum, walkersNum, minSum, testCases;
+	    int[] dogsSizes, sizeRanges;
+	    Scanner in = new Scanner(System.in);
+	    testCases=in.nextInt();
+	    for(int i = 0;i<testCases;i++)
+	    {
+	        dogsNum=in.nextInt();
+	        walkersNum=in.nextInt();
+	        dogsSizes=new int[dogsNum];
+	        for(int j=0;j<dogsNum;j++){
+	            dogsSizes[j]=in.nextInt();
+	        }
+	        Arrays.sort(dogsSizes);
+	        sizeRanges=new int[dogsNum-1];
+	        for(int j=0;j<dogsNum-1;j++){
+	            sizeRanges[j]=dogsSizes[j+1]-dogsSizes[j];
+	        }
+	        Arrays.sort(sizeRanges);
+	        for(int j=0;j<(sizeRanges.length)/2;j++)
+	        {
+	            int temp=sizeRanges[j];
+	            sizeRanges[j]=sizeRanges[(sizeRanges.length)-1-j];
+	            sizeRanges[(sizeRanges.length)-1-j]=temp;
+	        }
+	        minSum=dogsSizes[dogsNum-1]-dogsSizes[0];
+	        for(int j=0;j<walkersNum-1;j++)
+	        {
+	            minSum=minSum-sizeRanges[j];
+	        }
+	        System.out.println(minSum);
+	        }
+	    }
+	}

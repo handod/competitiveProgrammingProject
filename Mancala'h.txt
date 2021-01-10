@@ -1,0 +1,62 @@
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <deque> 
+
+using namespace std;
+
+int depth(deque<int> configure)
+{
+    int depthVal=-1, tempSize1, tempSize2, firstVal, shareSize, i;
+    vector<deque<int> > configs;
+    while(depthVal== -1)
+    {
+        configs.push_back(configure); //pushing current configuration       
+        firstVal = configure.front(); // get next state
+        configure.pop_front();
+        tempSize1 = configure.size();
+        shareSize=min(firstVal, tempSize1);
+        for(i=0; i<shareSize; i++)  configure[i]++;
+        for(;i<firstVal; i++)  configure.push_back(1);
+        tempSize2=configs.size();
+        for(int i=0; i<tempSize2; i++)  if(configs[i] == configure) depthVal=i;   
+    } 
+    return depthVal;
+}
+
+int height(deque<int> configure, vector<deque<int> > configs)
+{
+    int heightVal = 0, tempSize=configure.size();
+    bool isInvalid, isSame=false;
+    configs.push_back(configure); 
+    for(int i=tempSize-1; i>=0; i--)
+    {
+        isInvalid = false; // true: contain a zero
+        deque<int> tempConfig(configure);
+        for(int j=i; j>=0; j--) tempConfig[j]--;        
+        for(int j=0; j<tempSize-1; j++) // checks if the current configure is bad
+        {
+            if(tempConfig[j]==0 && tempConfig[j+1]!=0) {isInvalid = true;}
+        } 
+        if(isInvalid == true) continue;
+        tempConfig.push_front(i+1);        
+        while(tempConfig.back() == 0) tempConfig.pop_back(); // remove trailing zero
+        for(int j=0; j<tempSize; j++)
+        {
+            if(configs[j] == tempConfig) {isSame=true;}
+        }
+        if(isSame==true) break; // we got the same configure as the input, we are done          
+        heightVal = max(heightVal, height(tempConfig, configs)+1);
+    }
+    return heightVal;
+}
+
+int main() 
+{
+    int in;
+    deque<int> configure;
+    vector<deque<int> > configs;
+    while(cin >> in) configure.push_back(in);
+    cout << depth(configure) << ' ' << height(configure, configs);
+    return 0;
+}

@@ -1,0 +1,63 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <map>
+#include <string>
+
+using namespace std;
+
+struct person {
+    int year, month, day, hour, minute;
+    double latitude, longitude, d;  
+};
+
+bool isBefore(person person1, person person2)
+    {
+        int myTime=person1.minute*60 + person1.hour*3600 + person1.day*86400 + person1.month*2678400 + (person1.year-1970)*980294400;
+        int anotherTime=person2.minute*60 + person2.hour*3600 + person2.day*86400 + person2.month*2678400 +(person2.year-1970)*980294400;
+        if(myTime < anotherTime)  return true;
+        else return false;
+    }
+
+bool isNear(double madRadius, double madLat, double madLong, person per)
+    {
+        //given formula
+        per.d = 2 * 6378.137 * asin (sqrt ( pow(sin((per.latitude-madLat)/2),2) + cos(per.latitude) * cos(madLat) * pow(sin((per.longitude-madLong)/2),2)));
+        if(per.d<madRadius) return true;
+        else return false;
+    }
+
+int main() {
+    double radius, madLat, madLong;
+    char trash;
+    string trash2;
+    bool first=true;
+    long long phone;
+    map<long long, person> eaters;
+    person per;
+    cin >> madLat >> trash >> madLong;
+    madLat=madLat/180*3.1415926; 
+    madLong=madLong/180*3.1415926;
+    cin >> radius;   
+    cin >> trash2;
+    while(cin.peek()!=EOF)
+    {
+        cin>>per.day>>trash>>per.month>>trash>>per.year>>per.hour>>trash>>per.minute>>trash>>per.latitude>>trash>>per.longitude >>trash>>phone;
+        per.latitude=per.latitude/180*3.1415926;
+        per.longitude=per.longitude/180*3.1415926;
+        if(eaters.find(phone) == eaters.end()) eaters[phone] = per; //checks if the key of phone value is NOT exists
+        else if(isBefore(eaters[phone], per))  eaters[phone] = per; //if the IS EXIST, we put the earliest
+    }
+    for (auto kv : eaters) 
+    {
+        if(isNear(radius, madLat, madLong, kv.second))
+        {
+            if(!first) cout << ',';
+            first = false;
+            cout << kv.first;
+        }
+    }
+    return 0;
+}

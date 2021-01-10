@@ -1,0 +1,30 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    long long testCases, games, piles, stones=0, currentPile=0;
+    cin >> testCases;
+    for(int i=0;i<testCases;i++)
+    {
+        stones=0;
+        cin >> games;
+        for(long long j=0;j<games;j++)
+        {
+            cin >> piles;
+            for(long long k=0;k<piles;k++)
+            {
+                cin >> currentPile;
+                stones+=(currentPile/2);
+            }
+        }
+        if(stones%2==1) cout << "Alice" << endl;
+        else cout << "Bob" << endl;
+    }
+    return 0;
+}

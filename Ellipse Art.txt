@@ -1,0 +1,64 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution
+{
+    static class Ellipse
+     {
+        public int x1, y1, x2, y2, r;
+        public Ellipse(int x1, int y1, int x2, int y2, int r) 
+        {
+            this.x1 = x1;
+            this.y1 = y1;
+            this.x2 = x2;
+            this.y2 = y2;
+            this.r = r;
+        }
+    }   
+    
+    static void cleanPercent(List<Ellipse> ellipses) 
+    {
+        int cellCount = 0;
+        double dot1, dot2, dot3, dot4, checkSqrtSum, percent;
+        for (int x = -4995; x <= 4995; x+=10)
+        {
+            for (int y = -4995; y <= 4995; y+=10)
+            {
+                for (Ellipse elps : ellipses)
+                {
+                    dot1=Math.pow(x - elps.x1,2);
+                    dot2=Math.pow(y - elps.y1,2);
+                    dot3=Math.pow(x - elps.x2,2);
+                    dot4=Math.pow(y - elps.y2,2);
+                    checkSqrtSum=Math.sqrt(dot1 + dot2) + Math.sqrt(dot3 + dot4);
+                    if (checkSqrtSum <= elps.r) {cellCount++; break;}
+                } 
+            }
+        }
+        percent = 100.0*cellCount/(1000*1000);
+        System.out.println(Math.round(100 - percent) + "%");
+    }
+
+    public static void main(String[] args)
+    {
+        Scanner in = new Scanner(System.in);
+        int testNum = in.nextInt(), x1, y1, x2, y2, r;
+        List<Ellipse> ellipses;
+        int numOfEllipse;
+        for (int i = 0; i < testNum; i++)
+        {
+            numOfEllipse = in.nextInt();
+            ellipses = new ArrayList<>(numOfEllipse);
+            for (int j = 0; j < numOfEllipse; j++)
+            {               
+                x1 = in.nextInt()*100;
+                y1 = in.nextInt()*100;
+                x2 = in.nextInt()*100;
+                y2 = in.nextInt()*100;
+                r = in.nextInt()*100;
+                ellipses.add(new Ellipse(x1, y1, x2, y2, r));
+            }
+            cleanPercent(ellipses);
+        }
+    }    
+}

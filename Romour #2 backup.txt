@@ -1,0 +1,54 @@
+/************************************
+ *	AUTHOR: 		Divyansh Gaba	*
+ *	INSTITUTION: 	ASET, BIJWASAN	*
+ ************************************/
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef vector<int> vi;
+typedef pair<int,int> pi;
+long long INF = 1e9;
+
+long long bin(vector<long long> a,long long ele)
+{
+    long long low = 0,high = a.size()-1;
+    while(low<=high)
+    {
+        long long mid = (low+high)/2;
+        if(ele==a[mid])
+            return mid;
+        else if(ele<a[mid])
+            low = mid+1;
+        else
+            high = mid-1;
+    }
+    return INF;
+}
+int main()
+{
+	int test=1;
+	cin>>test;
+	while(test--)
+    {
+		long long a,b;
+		cin>>a>>b;
+		vector<long long> pa,pb;
+		while(a)
+        {
+            pa.push_back(a);
+            a/=2;
+        }
+        while(b)
+        {
+            pb.push_back(b);
+            b/=2;
+        }
+        long long ans = 1e9;
+        for(int i = 0;i<pa.size();i++)
+        {
+            ans = min(ans,bin(pb,pa[i])+i);
+        }
+        cout<<ans<<endl;
+    }
+	return 0;
+}

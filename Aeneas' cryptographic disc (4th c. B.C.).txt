@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+int convert(char ch)
+{
+    return int(ch)-int('A')+1;
+}
+int main()
+{
+	double *charAspects, radius, aspect, threadLength=0, PI=2*acos(0.0)/180;
+	char lastChar = '@', alphabet, ch;
+	bool flag=false;
+	charAspects= new double[26];
+	cin>>radius;
+	for(int i = 0;i<26;i++)
+    {
+        cin>>alphabet>>aspect;
+        charAspects[convert(alphabet)]=aspect;
+    }
+    while(cin.peek()!=EOF)
+    {
+        cin>>ch;
+        if(isalpha(ch))
+        {
+            ch = toupper(ch);
+            if(flag==false)
+            {
+                threadLength+=radius;
+                lastChar=ch;
+                flag=true;
+                continue;
+            }
+            threadLength += 2*radius*sin((abs(charAspects[convert(lastChar)]-charAspects[convert(ch)])/2*PI));
+            lastChar=ch;
+        }
+    }
+    cout<<int(ceil(threadLength))<<endl;
+	return 0;
+}

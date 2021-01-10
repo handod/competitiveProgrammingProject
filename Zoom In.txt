@@ -1,0 +1,45 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution 
+{
+    public static void main(String[] args)
+    {
+        int cols, rows, charNum, charsLineNum;
+        StringBuffer shape1, shape2;
+        String sign, str;
+        String[] result=null;
+        HashMap<String, String> map = new HashMap<String, String>();
+        Scanner in = new Scanner(System.in);
+        cols = Integer.parseInt(in.nextLine());
+        rows =  Integer.parseInt(in.nextLine());
+        charNum =  Integer.parseInt(in.nextLine());
+        for(int i=0;i<charNum;i++)
+        {
+            shape1 = new StringBuffer("");
+            sign = in.nextLine();
+            shape1.append(in.nextLine());
+            for(int j = 1; j < rows; j++) {shape1.append("\n"); shape1.append(in.nextLine());}
+            map.put(sign, shape1.toString());
+        }
+        charsLineNum = Integer.parseInt(in.nextLine());
+        for(int i = 0; i < charsLineNum; i++)
+        {    
+            str = in.nextLine();
+            for(int j = 0; j < rows; j++) 
+            {
+                shape2 = new StringBuffer("");
+                for (int k = 0; k < str.length(); k++)
+                {
+                    result = (map.get(String.valueOf(str.charAt(k)))).toString().split("\n", cols);
+                    if (result[j].equals("")) shape2.append("    ");
+                    else shape2.append(result[j]);
+                }
+                System.out.println(shape2);
+            }
+        }
+    }    
+}

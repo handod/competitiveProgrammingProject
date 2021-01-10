@@ -1,0 +1,29 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution 
+{
+    public static void main(String[] args) 
+    {     
+        String testCase, digits;
+        long countI;
+        Scanner in = new Scanner(System.in);       
+        testCase = in.nextLine();     
+        while(testCase.compareTo("END") != 0)
+        {         
+            countI=1;
+            digits = Integer.toString(testCase.length());
+            while(testCase.compareTo(digits)!=0)
+            {
+                countI++;
+                testCase = digits;
+                digits = Integer.toString(testCase.length());            
+            }
+            System.out.println(countI);
+            testCase = in.nextLine();
+        }
+    }
+}

@@ -1,0 +1,68 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    static int calc(int p, int s, int address[], Boolean isLRU)
+    {           
+        int count = 0;
+        LinkedList lst = new LinkedList();
+        for(int i = 0; i<address.length; i++)
+        {             
+            if(lst.contains((address[i]/s))==false)
+            {
+                if(p==0)
+                {
+                    lst.removeFirst();
+                    lst.add((address[i]/s));        
+                    count++;
+                }
+                else
+                {
+                    lst.add((address[i]/s));
+                    p--;
+                }
+                
+            }
+            else if(isLRU==true)
+            {
+                lst.remove(lst.indexOf(address[i]/s));
+                lst.add((address[i]/s));
+            }
+        }
+       return count;
+      }
+    
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        int p, s, n, fifo, LRU, testCase;
+        int[] address;
+        Scanner in = new Scanner(System.in);
+        testCase = in.nextInt(); 
+        for (int i = 0; i < testCase; i++)       
+        {
+            p = in.nextInt();
+            s = in.nextInt();
+            n = in.nextInt();
+            address = new int[n];
+            for(int j = 0; j < n; j++)
+            {
+                address[j] = in.nextInt();
+            }                               
+            fifo = calc(p, s, address, false);
+            LRU = calc(p, s, address, true); 
+            if(fifo<=LRU)
+            {
+                System.out.print("no ");
+            }
+            else
+            {
+                System.out.print("yes ");
+            }
+           System.out.println(fifo + " " + LRU);
+        }
+    }
+}

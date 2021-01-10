@@ -1,0 +1,26 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    long long c, h, o;
+    cin >> c >> h >> o;
+    if((-4*c+h+2*o)<0 || (-h+2*o)<0 || (4*c+h-2*o)<0)
+    {
+        cout << "Error";
+    }
+    else if((-4*c+h+2*o)%4!=0 || (-h+2*o)%4!=0 || (4*c+h-2*o)%24!=0)
+    {
+        cout << "Error";
+    }
+    else
+    {
+        cout << (-4*c+h+2*o)/4 << " " << (-h+2*o)/4 << " " << (4*c+h-2*o)/24;
+    }
+    return 0;
+}

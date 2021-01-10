@@ -1,0 +1,30 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution
+{ 
+    public static void main(String[] args)
+    {
+        long teared, petalAboveFactor, petals, finalPetal;
+        int testCase, minFactor;
+        Scanner in = new Scanner(System.in);
+        testCase=in.nextInt();
+        for(int i=0;i<testCase;i++)
+        {
+            petals=in.nextLong();
+            minFactor=0;
+            teared=petals;
+            while(teared>0)
+            {
+                teared/=2;
+                minFactor++; //the i'th 2 factor below the N petals
+            }
+            petalAboveFactor=petals-((long)Math.pow(2,(minFactor-1))-1); // the difference between N petals to 2 factor 
+            finalPetal=(petalAboveFactor*2)-1;
+            System.out.println(finalPetal);
+        }       
+    }
+}

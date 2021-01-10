@@ -1,0 +1,46 @@
+// Don't place your source in a package
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+import java.math.BigInteger;
+
+// Please name your class Main
+class Main {
+	public static void main (String[] args) throws java.lang.Exception 
+	{
+	    HashMap<String,Integer> digits =  new HashMap<String,Integer>();
+	    int numbersLine, base10;
+	    BigInteger total = BigInteger.valueOf(1);
+	    String input, num;
+	    String [] digitPerCell;
+	    Scanner in = new Scanner(System.in);
+		digits.put("xrtp", 0);
+		digits.put("pmr", 1);
+		digits.put("yep", 2);
+		digits.put("yjtrr", 3);
+		digits.put("gpit", 4);
+		digits.put("gobr", 5);
+		digits.put("doc", 6);
+		digits.put("drbrm", 7);
+		digits.put("rohjy", 8);
+		digits.put("momr", 9);
+		digits.put("yrm", 10);
+        digits.put("rarbrm", 11);
+        digits.put("yerabr", 12);
+		digits.put("yjotyrrm", 13);
+		digits.put("gpityrrm", 14);
+		digits.put("gogyrrm", 15);
+		numbersLine = in.nextInt();
+		in.nextLine();
+        for(int i = 0; i < numbersLine; i++)
+        {
+            num= "";
+            input = in.nextLine();
+            digitPerCell = input.split(" ");
+            for (String digitString : digitPerCell) num +=String.valueOf(digits.get(digitString));
+            base10=Integer.parseInt(num,16);  
+            total = total.multiply(BigInteger.valueOf(base10));
+        }
+		System.out.print(total);
+	}
+}

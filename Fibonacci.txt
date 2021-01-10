@@ -1,0 +1,31 @@
+// Don't place your source in a package
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+// Please name your class Main
+class Main 
+{
+	static public void main (String[] args)
+	{
+	    int testCase, febIndex;
+	    HashMap<Integer, Long> febNums = new HashMap<Integer, Long>();
+	    long febNum1, febNum2;
+	    Scanner in = new Scanner(System.in);
+		testCase = in.nextInt();
+		febNums.put(0,(long)0);
+        febNums.put(1,(long)1);
+        for (int i = 2; i<=60; i++)
+        {
+            febNum1=febNums.get(i-2);
+            febNum2=febNums.get(i-1);
+            febNums.put(i,febNum1+febNum2);
+        }
+         
+		for(int i = 0; i<testCase; i++)
+		{
+			febIndex = in.nextInt();
+	        System.out.println(febNums.get((febIndex+1)%60)%10);
+		}
+	}
+}
